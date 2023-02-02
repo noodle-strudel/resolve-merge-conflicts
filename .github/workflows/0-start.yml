@@ -36,7 +36,7 @@ jobs:
     steps:
       # We'll need to check out the repository so that we can edit the README
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0 # Let's get all the branches
 
@@ -48,35 +48,27 @@ jobs:
             echo "Current step is not 0"
             exit 0
           fi
-
           echo "Make a branch"
           BRANCH=my-resume
           git checkout -b $BRANCH
-
           echo "Update resume.md"
           sed -i.bak 's/Experience/Job History/' resume.md 
-
           echo "Make a commit"
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add resume.md
           git commit --message="Update resume.md in my-resume"
-
           echo "Push"
           git push --set-upstream origin $BRANCH
-
           echo "Make a pull request"
           # Reference https://cli.github.com/manual/gh_pr_create
           gh pr create --title "Resolving merge conflicts" --body "Resolving merge conflicts"
-
           echo "Restore main"
           git checkout main
-
           echo "Create a merge conflict"
           sed -i.bak 's/Experience/Jobs/' resume.md 
           git add resume.md
           git commit --message="Update resume.md in main"
-
           echo "Push"
           git push origin main
         env:
