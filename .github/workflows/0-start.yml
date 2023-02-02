@@ -52,7 +52,10 @@ jobs:
           echo "Make a branch"
           BRANCH=my-resume
           git checkout -b $BRANCH
-
+          
+          echo "Check to see if it is connected to remote at all beforehand"
+          git remote
+          
           echo "Update resume.md"
           sed -i.bak 's/Experience/Job History/' resume.md 
 
