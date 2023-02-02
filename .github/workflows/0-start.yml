@@ -54,7 +54,7 @@ jobs:
           git checkout -b $BRANCH
           
           echo "Pull most recent changes cause it needs to"
-          git config pull.ff only
+          git config pull.rebase false
           git branch --set-upstream-to=origin/my-resume my-resume
           git pull
           
